@@ -1,0 +1,40 @@
+Mary's idea for median:
+
+* use a suitable sorting network
+
+* "suitable" here seems to be a an adaptation of Batcher's odd/even sort to 3-sorters
+
+* remove all unnecessary comparators (based on shadow-value knowledge)
+
+* and in particular, make the 3-sorter "adaptive" based on whether or not the first two or last two outputs of the component are necessary.
+
+Koen's idea for median:
+
+* divide up the input in two halves (BIG and SMALL) by means of n/2 2-sorters
+
+* for BIG, compute the n/4 smallest outputs by means of a cut-off sorting network
+
+* for SMALL, compute the ~n/4 largest ouputs by means of a cut-off sorting network
+
+* merge these two lists together into a median, throwing away any unused comparators, using a odd/even merger
+
+Questions that we do not know the answer to but would like to:
+
+* What happens to Mary's idea when applied to a suitable sorting network built of traditional 2-sorters?
+
+* Can we generalize Mary's idea to other sorters, for example 5-sorters?
+
+(If Mary's idea for 2-sorters turns out to be the same as my network, then we have reached deeper understanding.)
+
+* What is known about the best ways of doing median / selection in comparator networks?
+
+* How does one get to 96 comparators for 25 inputs?
+
+* How to generalize these ideas to selection of an interval?
+
+* How to describe these networks in terms of n-input, k-output sorters?
+
+Other issues:
+
+* If we apply these ideas in SAT, we can primitively implement k-sorters of any (smallish) size. We do not have to implement everything in terms of 2-sorters.
+

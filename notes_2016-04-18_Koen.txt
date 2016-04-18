@@ -1,0 +1,20 @@
+How to make a median-of-25 network
+
+1. Divide the input into 5 groups of 5
+
+2. sort each group, re-arrange the results into 5 groups of 5: SMALL, SMALLISH, MEDIUM, BIGGISH, and BIG.
+
+3. To compute the median, we need:
+
+1. the 2 largest  elements of SMALL
+2. the 3 largest  elements of SMALLISH
+3. the 3 middle   elements of MEDIUM
+4. the 3 smallest elements of BIGGISH
+5. the 2 smallest elements of BIG
+
+These can be computed by specialized cut-off sorting networks.
+
+4. Now, we need to merge all of these together. We can use an adaptive generalized odd/even merger a la Mary's for this.
+
+
+
