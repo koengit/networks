@@ -4,9 +4,18 @@ import qualified Data.Map as M
 import Data.Map( Map )
 import qualified Data.Set as S
 import Data.Set( Set )
-import Data.List( sort, transpose )
+import Data.Ord
+import Data.List( sort, transpose, sortBy )
 
 import Aux
+
+--------------------------------------------------------------------------------
+-- applying one comparator
+
+apply :: (Int,Int) -> ((a,a) -> (a,a)) -> [a] -> [a]
+apply (x,y) sort2 xs = (xs =!! (x,a)) =!! (y,b)
+ where
+  (a,b) = sort2 (xs!!x,xs!!y)
 
 --------------------------------------------------------------------------------
 -- an abstract datatype that can be used to retrieve all comparators
@@ -39,7 +48,7 @@ draw xs =
   chunks []         = []
   chunks ((x,y):cs) = chunk (S.fromList [x,y]) [(x,y)] cs []
 
-  chunk forbidden ch []         cs' = sort ch : chunks (reverse cs')
+  chunk forbidden ch []         cs' = sort' ch : chunks (reverse cs')
   chunk forbidden ch ((x,y):cs) cs' =
     chunk (S.insert x (S.insert y forbidden)) 
           ([ (x,y) | not no ] ++ ch)
@@ -47,6 +56,8 @@ draw xs =
           ([ (x,y) | no ] ++ cs')
    where
     no = x `S.member` forbidden || y `S.member` forbidden
+
+  sort' = sortBy (comparing (\(x,y) -> (x-y,x,y)))
 
   mchunks []         = []
   mchunks ((x,y):cs) = mchunk (S.fromList [x..y]) [(x,y)] cs []

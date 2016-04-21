@@ -13,10 +13,8 @@ printMedian25 = draw (median25 [line i | i <- [0..24]])
 median25 :: [Line] -> [Line]
 median25 xs = go median25comps xs
  where
-  go []         xs = xs
-  go ((x,y):cs) xs = go cs ((xs =!! (x,a)) =!! (y,b))
-   where
-    (a,b) = sort2 (xs!!x,xs!!y)
+  go []      xs = xs
+  go (xy:cs) xs = go cs (apply xy sort2 xs)
 
 -- taken from page 13/14 of http://ndevilla.free.fr/median/median.pdf
 median25comps :: [(Int,Int)]
